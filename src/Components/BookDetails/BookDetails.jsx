@@ -1,11 +1,13 @@
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useLoaderData, useParams } from "react-router-dom";
+import { saveBookList } from "../../Utility/LocalStorage";
 
 // import PropTypes from "prop-types";
 const BookDetails = () => {
   const books = useLoaderData();
   const { id } = useParams();
   const book = books.find((book) => book.bookId === id);
-  console.log(book);
   const {
     bookId,
     bookName,
@@ -19,10 +21,36 @@ const BookDetails = () => {
     publisher,
     yearOfPublishing,
   } = book;
+
+  const [ListedBooks, setListedBooks] = useState(false);
+  const [wishListBooks, setWishListBooks] = useState(false);
+
+  const handleListedBooks = (listType) => {
+    if (listType == "read") {
+      ListedBooks
+        ? toast.error("You already added this book")
+        : toast.success("Added");
+      setListedBooks((ListedBooks) => ListedBooks || true);
+      saveBookList(id);
+    } else if (listType == "wish") {
+        if (ListedBooks || wishListBooks) {
+            toast.error("You already added this book")
+        }
+        else{
+            toast.success("Added");
+            setWishListBooks(!wishListBooks);
+        }
+    }
+  };
+
   return (
     <div className="card lg:card-side bg-base-100 h-[500px] shadow-xl">
       <figure className="h-auto overflow-hidden my-5">
-        <img className="h-full object-contain rounded-xl" src={image} alt={author} />
+        <img
+          className="h-full object-contain rounded-xl"
+          src={image}
+          alt={author}
+        />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{bookName}</h2>
@@ -34,13 +62,13 @@ const BookDetails = () => {
           <span className="font-bold">Review: </span> {review}
         </p>
         <p>
-          <span className="font-bold mr-3">Tags: </span>{" "}
+          <span className="font-bold mr-3">Tags: </span>
           {tags.map((tag) => (
             <div
               key={bookId}
               className="badge badge-accent badge-outline mr-3 p-3"
             >
-              {tag}
+             # {tag}
             </div>
           ))}
         </p>
@@ -59,8 +87,19 @@ const BookDetails = () => {
           Rating: <span className="font-bold">{rating}</span>
         </p>
         <div className="card-actions justify-start">
-          <button className="btn btn-outline btn-success">Read</button>
-          <button className="btn btn-outline btn-info">Wishlist</button>
+          <button
+            onClick={() => handleListedBooks("read")}
+            className="btn btn-outline btn-success"
+          >
+            Read
+          </button>
+          <button
+            onClick={() => handleListedBooks("wish")}
+            className="btn btn-outline btn-info"
+          >
+            Wishlist
+          </button>
+          <Toaster />
         </div>
       </div>
     </div>
