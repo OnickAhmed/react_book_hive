@@ -1,9 +1,11 @@
-import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useLoaderData, useParams } from "react-router-dom";
-import { saveBookList } from "../../Utility/LocalStorage";
+import {
+  saveReadBookList,
+  saveWishlistBookList,
+} from "../../Utility/LocalStorage";
+import { localStorageIdCheck } from "../../Utility/HelperFunctions";
 
-// import PropTypes from "prop-types";
 const BookDetails = () => {
   const books = useLoaderData();
   const { id } = useParams();
@@ -22,24 +24,28 @@ const BookDetails = () => {
     yearOfPublishing,
   } = book;
 
-  const [ListedBooks, setListedBooks] = useState(false);
-  const [wishListBooks, setWishListBooks] = useState(false);
-
-  const handleListedBooks = (listType) => {
+  const handleListedBooks = (id, listType) => {
     if (listType == "read") {
-      ListedBooks
-        ? toast.error("You already added this book")
-        : toast.success("Added");
-      setListedBooks((ListedBooks) => ListedBooks || true);
-      saveBookList(id);
+      if (!localStorageIdCheck(id.toString(), "readBookList", "check")) {
+        toast.success("Added to Read list");
+        saveReadBookList(id);
+        if (localStorageIdCheck(id.toString(), "wishlistBookList", "check")) {
+          localStorageIdCheck(id.toString(), "wishlistBookList", "delete");
+        }
+      } else {
+        toast.error("You already added this book to Read list");
+      }
     } else if (listType == "wish") {
-        if (ListedBooks || wishListBooks) {
-            toast.error("You already added this book")
+      if (!localStorageIdCheck(id.toString(), "readBookList", "check")) {
+        if (!localStorageIdCheck(id.toString(), "wishlistBookList", "check")) {
+          toast.success("Added to Wishlist");
+          saveWishlistBookList(id);
+        } else {
+          toast.error("You already added this book to Wish list");
         }
-        else{
-            toast.success("Added");
-            setWishListBooks(!wishListBooks);
-        }
+      } else {
+        toast.error("You already added this book to Read list");
+      }
     }
   };
 
@@ -68,7 +74,7 @@ const BookDetails = () => {
               key={bookId}
               className="badge badge-accent badge-outline mr-3 p-3"
             >
-             # {tag}
+              # {tag}
             </div>
           ))}
         </p>
@@ -88,13 +94,13 @@ const BookDetails = () => {
         </p>
         <div className="card-actions justify-start">
           <button
-            onClick={() => handleListedBooks("read")}
+            onClick={() => handleListedBooks(bookId, "read")}
             className="btn btn-outline btn-success"
           >
             Read
           </button>
           <button
-            onClick={() => handleListedBooks("wish")}
+            onClick={() => handleListedBooks(bookId, "wish")}
             className="btn btn-outline btn-info"
           >
             Wishlist
@@ -105,9 +111,5 @@ const BookDetails = () => {
     </div>
   );
 };
-
-// BookDetails.propTypes = {
-//     book: PropTypes.object,
-//   };
 
 export default BookDetails;
