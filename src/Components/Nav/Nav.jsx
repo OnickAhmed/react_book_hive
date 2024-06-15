@@ -14,7 +14,7 @@ const Nav = () => {
           </ul>
         </details>
       </li>
-      <li><NavLink to="/toRead">Pages To Read</NavLink></li>
+      <li><NavLink to="/pagesToRead">Pages To Read</NavLink></li>
       <li><NavLink to="/new">New Books</NavLink></li>
       <li><NavLink to="/contact">Contact Us</NavLink></li>
     </>
