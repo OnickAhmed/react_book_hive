@@ -31,7 +31,7 @@ const PagesToRead = () => {
   }, []);
 
   return (
-    <div>
+    <div className="w-1/2 mx-auto p-20">
       <BarChart
         width={500}
         height={300}
