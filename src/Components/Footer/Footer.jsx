@@ -1,12 +1,22 @@
+import { NavLink } from "react-router-dom";
+
 const Footer = () => {
+  const links = (
+    <>
+      <li><NavLink to="/">Home</NavLink></li>
+      <li><NavLink to="/bookList">Book List</NavLink></li>
+      <li><NavLink to="/pagesToRead">Pages To Read</NavLink></li>
+      <li><NavLink to="/new">New Books</NavLink></li>
+      <li><NavLink to="/contact">Contact Us</NavLink></li>
+    </>
+  );
   return (
     <footer className="footer footer-center p-10 bg-base-200 text-base-content rounded">
       <h2 className="text-3xl font-semibold font-[Poppins]">Book Hive</h2>
       <nav className="grid grid-flow-col gap-4">
-        <a className="link link-hover">About us</a>
-        <a className="link link-hover">Contact</a>
-        <a className="link link-hover">Jobs</a>
-        <a className="link link-hover">Press kit</a>
+      <ul className="menu menu-horizontal px-1">
+          {links}
+      </ul>
       </nav>
       <nav>
         <div className="grid grid-flow-col gap-4">
@@ -46,7 +56,7 @@ const Footer = () => {
         </div>
       </nav>
       <aside>
-        <p>Copyright © 2024 - All right reserved by ACME Industries Ltd</p>
+        <p>Copyright © 2024 - All right reserved</p>
       </aside>
     </footer>
   );

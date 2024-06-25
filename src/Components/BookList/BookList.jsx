@@ -63,7 +63,7 @@ const BookList = () => {
       <div className="text-center my-10">
         <div className="dropdown dropdown-hover">
           <div tabIndex={0} role="button" className="btn m-1">
-            Hover
+            Sort By
           </div>
           <ul
             tabIndex={0}

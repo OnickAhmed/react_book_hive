@@ -5,15 +5,6 @@ const Nav = () => {
     <>
       <li><NavLink to="/">Home</NavLink></li>
       <li><NavLink to="/bookList">Book List</NavLink></li>
-      <li>
-        <details>
-          <summary>Listed Books</summary>
-          <ul className="p-2">
-            <li><NavLink to="/read">Books Read</NavLink></li>
-            <li><NavLink to="/wishlist">Wishlist Books</NavLink></li>
-          </ul>
-        </details>
-      </li>
       <li><NavLink to="/pagesToRead">Pages To Read</NavLink></li>
       <li><NavLink to="/new">New Books</NavLink></li>
       <li><NavLink to="/contact">Contact Us</NavLink></li>

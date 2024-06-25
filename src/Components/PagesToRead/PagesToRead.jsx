@@ -31,13 +31,13 @@ const PagesToRead = () => {
   }, []);
 
   return (
-    <div className="w-1/2 mx-auto p-20">
+    <div className="w-1/3 md:w-1/2 md:mx-auto md:p-16">
       <BarChart
-        width={500}
-        height={300}
+        width={400} md:width={500}
+        height={350}
         data={ReadBooks}
         margin={{
-          top: 20,
+          top: 50,
           right: 30,
           left: 20,
           bottom: 5,

@@ -11,7 +11,7 @@ const Books = () => {
   }, []);
   return (
     <div>
-      <h2 className="text-center text-4xl">Books: {books.length}</h2>
+      <h2 className="text-center text-4xl mt-11">Books: {books.length}</h2>
       <div className="grid lg:grid-cols-3 my-10">
         {books.slice(0, dataLength).map((book) => (
           <Book key={book.bookId} book={book}></Book>
@@ -21,7 +21,7 @@ const Books = () => {
         <div className={dataLength == books.length ? 'hidden' : ''}>
           <button
             onClick={() => setDataLength(books.length)}
-            className="btn btn-outline btn-info"
+            className="btn btn-outline btn-info my-5"
           >
             Show All
           </button>

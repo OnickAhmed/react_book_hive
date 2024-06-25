@@ -50,7 +50,7 @@ const BookDetails = () => {
   };
 
   return (
-    <div className="card lg:card-side bg-base-100 h-[500px] shadow-xl">
+    <div className="card lg:card-side bg-base-100  shadow-xl">
       <figure className="h-auto overflow-hidden my-5">
         <img
           className="h-full object-contain rounded-xl"
@@ -92,7 +92,7 @@ const BookDetails = () => {
         <p>
           Rating: <span className="font-bold">{rating}</span>
         </p>
-        <div className="card-actions justify-start">
+        <div className="card-actions justify-start my-10">
           <button
             onClick={() => handleListedBooks(bookId, "read")}
             className="btn btn-outline btn-success"
